@@ -11,7 +11,6 @@ import Ran4 from 'src/components/screens/Ran4';
 import { Ionicons } from '@expo/vector-icons';
 import StateProvider from 'src/context/StateContext';
 
-
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -34,7 +33,7 @@ export default function App() {
             name="Ran1"
             component={Ran1}
             options={{ 
-              tabBarLabel: 'Ran1',
+              tabBarLabel: '1-9',
               tabBarIcon: () => (
                 <Ionicons name="aperture-outline" size={24} color="#007AFF" />
               )

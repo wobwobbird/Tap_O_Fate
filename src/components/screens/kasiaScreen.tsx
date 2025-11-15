@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import screenStyles from "src/styles/screenStyles";
 import { useState, useCallback, useEffect } from "react";
 import { useStateContext } from "src/context/StateContext";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function KasiaScreen() {
     const [data, setData] = useState(kasiaText);
@@ -20,9 +21,16 @@ export default function KasiaScreen() {
     return (
         <View style={screenStyles.container}>
             {!showKasiaTab ? (
-                <View style={styles.tapsContainer} >
-                    <Text style={styles.taps} >Where are the taps?</Text>
-                </View>
+                <LinearGradient 
+                    colors={['#fbc2eb', '#a6c1ee']}
+                    style={styles.tapsContainer}
+                >
+                    <View  >
+                        <Text style={styles.taps} >Where are the taps?</Text>
+                    </View>
+
+                </LinearGradient>
+            
             ) : (
                 <FlatList
                     data={data}

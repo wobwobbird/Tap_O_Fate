@@ -41,6 +41,20 @@ export default function HomeScreen() {
         console.log("clicked");
     }
 
+    const boxDescriptions = [
+        "Choose a random number between 1 and 9",
+        "ran2Textran2Textran2Textran2Textran2Textddedf",
+        "ran3Text",
+        "ran4Text",
+        "ran5Text",
+    ]
+    const boxColour = [
+        ['#667eea', '#764ba2'],
+        ['#4facfe', '#00f2fe'],
+        ['#ff9a56', '#ff6a88'],
+        ['#43e97b', '#38f9d7'],
+    ]
+
     // const selectionBox = (click: any, icon: number) => {
     //     return (
     //         <Pressable 
@@ -60,24 +74,25 @@ export default function HomeScreen() {
     //     )
     // }
 
-    const selectionBox = (click: any, clickLocation: any, icon: string) => {
+    const selectionBox = (click: any, clickLocation: any, icon: string, descriptonText: string, theBoxColour: any) => {
         return (
-            <Pressable 
-                    style={style.selectionBox}
-                    onPress={() => click(clickLocation)}
-            >
-                {/* <LinearGradient colors={['#667eea', '#764ba2']} > */}
-                    <View style={style.logo} >
-                        <Ionicons name={icon as any} size={50} color="#007AFF" />
-                        
-                    </View>
-                    <View style={style.descripton} >
-                        {/* <Text style={style.tapcount} >{kasiaTaps}</Text>
-                        <Text style={style.tapcount} >{localShowKasiaTab.toString()}</Text> */}
-                    </View>
+            <LinearGradient colors={[theBoxColour[0], theBoxColour[1]]} style={style.outerSelectionBox} >
+                <Pressable 
+                        style={style.selectionBox}
+                        onPress={() => click(clickLocation)}
+                >
+                        <View style={style.logo} >
+                            <Ionicons name={icon as any} size={50} color="#ffffff" />
+                            
+                        </View>
+                        <View style={style.descripton} >
+                            <Text style={style.descriptionBoxText} >{descriptonText}</Text>
+                            {/* <Text style={style.tapcount} >{kasiaTaps}</Text>
+                            <Text style={style.tapcount} >{localShowKasiaTab.toString()}</Text> */}
+                        </View>
 
-                {/* </LinearGradient> */}
-            </Pressable>
+                </Pressable>
+            </LinearGradient>
 
         )
     }
@@ -93,25 +108,27 @@ export default function HomeScreen() {
                     >Tap 'O' Matic</Text>
                 </View>
                 <View style={style.robotHolder} >{robotArray}</View>
-                {/* <Ionicons name="logo-ionitron" size={50} color="#007AFF" style={style.robot} /> */}
-                <Text style={style.genText} >This is a collection of random number generators</Text>
-                {selectionBox(handleNavClick, "Ran1", "aperture-outline" )}
-                {selectionBox(handleNavClick, "Ran2", "american-football-outline")}
-                {selectionBox(handleNavClick, "Ran3", "barbell-outline")}
-                {selectionBox(handleNavClick, "Ran4", "cash-outline")}
-                <Pressable 
-                    style={style.selectionBox}
-                    onPress={() => handleSelectionBoxPress()}
-                >
-                    <View style={style.logo} >
-                        <Ionicons name="people-circle-outline" size={50} color="#007AFF" />
-                        
-                    </View>
-                    <View style={style.descripton} >
-                        <Text style={style.tapcount} >{kasiaTaps === 0 ? "Tap ;)" : kasiaTaps}</Text>
-                    </View>
+                <Text style={style.genText} >A collection of random number generators</Text>
+                {selectionBox(handleNavClick, "1-9", "aperture-outline", boxDescriptions[0], boxColour[0] )}
+                {selectionBox(handleNavClick, "Ran2", "american-football-outline", boxDescriptions[1], boxColour[1]  )}
+                {selectionBox(handleNavClick, "Ran3", "barbell-outline", boxDescriptions[2], boxColour[2]  )}
+                {selectionBox(handleNavClick, "Ran4", "cash-outline", boxDescriptions[3], boxColour[3] )}
+                <LinearGradient colors={['#fbc2eb', '#a6c1ee']} style={style.outerSelectionBox} >
+                    <Pressable 
+                        style={style.selectionBox}
+                        onPress={() => handleSelectionBoxPress()}
+                    >
+                        <View style={style.logo} >
+                            <Ionicons name="people-circle-outline" size={50} color="#FFFFFF" />
+                            
+                        </View>
+                        <View style={style.descripton} >
+                            <Text style={style.descriptionBoxText} >{kasiaTaps === 0 ? "Tap ;)" : kasiaTaps}</Text>
+                        </View>
 
-                </Pressable>
+                    </Pressable>
+
+                </LinearGradient>
                 {/* <View style={style.selectionBox} >
 
                 </View>
@@ -158,19 +175,16 @@ const style = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
     },
-    selectionBox: {
+    outerSelectionBox: {
         backgroundColor: "grey",
         // backgroundColor: "white",
         marginVertical: 10,
         marginHorizontal: 20,
         height: 80,
         borderRadius: 20,
-        flexDirection: "row",
-        // box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); 
-        // iOS shadow
-        borderWidth: 5,
-        // outlineColor: "green,"
-        // borderBottomWidth: 5,
+        // flexDirection: "row",
+        borderWidth: 0,
+    
         // iOS shadow
         shadowColor: '#000',
         // shadowOffset: { width: 10, height: -3 },
@@ -178,18 +192,31 @@ const style = StyleSheet.create({
         shadowRadius: 5,
         // Android shadow
         elevation: 5,
-      
 
-        // shadowColor: '#010',
-        // shadowOffset: { width: 0, height: 1 },
-        // shadowOpacity: 0.05,
-        // shadowRadius: 2,
+    },
+    selectionBox: {
+        // backgroundColor: "grey",
+        // backgroundColor: "white",
+        // marginVertical: 10,
+        // marginHorizontal: 20,
+        // height: 80,
+        // borderRadius: 20,
+        height: "100%",
+        width: "100%",
+        flexDirection: "row",
+        // borderWidth: 5,
+
+        // // iOS shadow
+        // shadowColor: '#000',
+        // // shadowOffset: { width: 10, height: -3 },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 5,
         // // Android shadow
-        // elevation: 2,
+        // elevation: 5,
 
     },
     logo: {
-        width: 60,
+        width: 80,
         // backgroundColor: "grey",
         borderRadius: 20,
         justifyContent: "center",
@@ -198,14 +225,25 @@ const style = StyleSheet.create({
     descripton: {
         flex: 1,
         // backgroundColor: "blue",
-        borderRadius: 20,
+        // borderRadius: 20,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        marginVertical: 5,
+        marginRight: 10,
+
 
     },
-    tapcount: {
-        textAlign: 'center',
-        fontSize: 30,
+    descriptionBoxText: {
+        fontSize: 20,
+        fontWeight: 600,
+        color: "white",
+        textShadowColor: "rgba(0, 0, 0, 0.5)",
+        textShadowOffset: { width: 1, height: 1 },
+        textShadowRadius: 2,
+    },
+    // tapcount: {
+    //     textAlign: 'center',
+    //     fontSize: 30,
 
-    }
+    // }
 })
