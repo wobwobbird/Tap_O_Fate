@@ -11,7 +11,7 @@ import Slider from '@react-native-community/slider';
 export default function Ran4() {
     const [currentInput, setCurrentInput] = useState('');
     const [playerNames, setPlayerNames] = useState<string[]>([]);
-
+    const [playerInputCount, setPlayerInputCount] = useState(1);
 
     const playerSelect = () => {
         return (
