@@ -35,8 +35,7 @@ export default function App() {
             options={{ 
               tabBarLabel: '1-9',
               tabBarIcon: () => (
-                <Ionicons name="options-outline" size={24} color="#007AFF" />
-                // <Ionicons name="aperture-outline" size={24} color="#007AFF" />
+                <Ionicons name="options-outline" size={24} color="#007AFF" /> //aperture-outline
               )
             }}
           />

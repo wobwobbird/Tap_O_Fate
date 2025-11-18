@@ -20,15 +20,11 @@ export default function Ran2() {
     }
 
     function selectHeads() {
-        // console.log("Heads pressed")
         setSelectedCoin("Heads");
-        
     }
     
     function selectTails() {
-        // console.log("Tails pressed")
         setSelectedCoin("Tails");
-
     }
 
     function flipCoin() {
@@ -76,15 +72,6 @@ export default function Ran2() {
                     >Click here to reset</Text>
                     
                 </Pressable>
-
-                {/* <Pressable>
-                    <Text 
-                        style={style.howToTextReset}
-                        onPress={resetGen}
-                    >Click here to reset</Text>
-                    
-                </Pressable> */}
-
             </View>
             <View style={style.coinSelection}>
                 <Pressable
@@ -166,7 +153,6 @@ const style = StyleSheet.create({
         fontSize: 20,
         textAlign: "center",
         fontWeight: 800,
-
     },
     howTo: {
         borderRadius: 8,
@@ -185,13 +171,8 @@ const style = StyleSheet.create({
     },
     coinSelection: {
         height: 144,
-        // width: 300,
-        // borderRadius: 8,
-        // borderWidth: 2,
-        // borderColor: "grey",
         flexDirection: "row",
         justifyContent: "space-evenly"
-
     },
     coin: {
         height: 140,
@@ -221,10 +202,6 @@ const style = StyleSheet.create({
     
     flipCoinWrapper: {
         height: 200,
-        // width: 300,
-        // borderRadius: 8,
-        // borderWidth: 2,
-        // borderColor: "grey",
         flexDirection: "row",
         justifyContent: "space-evenly"
 
@@ -247,11 +224,7 @@ const style = StyleSheet.create({
     resultText: {
         fontSize: 20,
         fontWeight: 800,
-        // marginHorizontal: 10,
         gap: 10,
-        // backgroundColor: "green",
         textAlign: "center",
     }
-
-
 })

@@ -11,8 +11,8 @@ export default function Ran1() {
     // Set up
     const [p1Name, onChangeP1Name] = useState('');
     const [p2Name, onChangeP2Name] = useState('');
-    const [p1Number, onChangep1Number] = useState(0);
-    const [p2Number, onChangeP2Number] = useState(0);
+    const [p1Number, onChangep1Number] = useState('');
+    const [p2Number, onChangeP2Number] = useState('');
     const [usedNumbers, setUsedNumbers] = useState<Set<string>>(new Set());
     const [playerInfoSaved, setPlayerInfoSaved] = useState(false);
     const [startGame, setStartGame] = useState(false);
@@ -61,8 +61,8 @@ export default function Ran1() {
     function resetGen() {
         onChangeP1Name('');
         onChangeP2Name('');
-        onChangep1Number(0);
-        onChangeP2Number(0);
+        onChangep1Number('');
+        onChangeP2Number('');
         setUsedNumbers(new Set());
         setPlayerInfoSaved(false);
         setStartGame(false);
@@ -183,7 +183,7 @@ export default function Ran1() {
                                     }
                                 }
                             }}
-                                            value={p2Number}
+                            value={p2Number}
                             placeholder="Choose number"
                             keyboardType="numeric"
                         ></TextInput>
@@ -192,7 +192,7 @@ export default function Ran1() {
                     <Pressable 
                         style={style.button}
                         onPress={() => {
-                            if (p1Name !== '' && p2Name !== '' && p1Number !== 0 && p2Number !== 0) {
+                            if (p1Name !== '' && p2Name !== '' && p1Number !== '' && p2Number !== '') {
 
                                 setPlayerInfoSaved(true);
                                 
@@ -281,7 +281,6 @@ const style = StyleSheet.create({
         fontSize: 20,
         textAlign: "center",
         fontWeight: 800,
-
     },
     howTo: {
         borderRadius: 8,
@@ -289,7 +288,6 @@ const style = StyleSheet.create({
         borderColor: 'rgba(0, 0, 0, 0.29)',
         gap: 5,
         padding: 5,
-
     },
     howToText: {
         fontSize: 18,
@@ -300,41 +298,30 @@ const style = StyleSheet.create({
     },
     startScreen: {
         gap: 10,
-        // flex: 1,
-        // justifyContent: "center",
-
     },
     input: {
         height: 40,
-        // margin: 12,
-        borderWidth: 1,
+        borderColor: 'rgba(0, 0, 0, 0.29)',
+        borderWidth: 2,
         padding: 10,
         flex: 1,
-        backgroundColor: "green,",
         borderRadius: 12,
     },
     playerInput: {
-        // flex: 1,
         flexDirection: "row",
         paddingHorizontal: 10,
-        // backgroundColor: "green",
         height: "auto",
         gap: 10,
     },
     playerInfo: {
-        // backgroundColor: "pink",
         fontSize: 20,
         marginHorizontal: 10,
         gap: 10,
-
-        // justifyContent: "center",
-        
     },
     display: {
         textAlign: "center",
         fontSize: 18,
         fontWeight: 600,
-
     },
     button: {
         backgroundColor: 'rgba(27, 234, 253, 0.64)',
@@ -347,25 +334,18 @@ const style = StyleSheet.create({
     },
     scoreHolder: {
         gap: 10,
-
     },
     slider: {
-        // width: 300,
         height: 40,
-
     },
     scoreText1: {
         fontSize: 20,
-        // marginHorizontal: 10,
         gap: 10,
-        // backgroundColor: "green",
     },
     scoreText2: {
         fontSize: 20,
         fontWeight: 800,
-        // marginHorizontal: 10,
         gap: 10,
-        // backgroundColor: "green",
         textAlign: "center",
     }
 })

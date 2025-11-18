@@ -67,12 +67,9 @@ export default function HomeScreen() {
                         </View>
                         <View style={style.descripton} >
                             <Text style={style.descriptionBoxText} >{descriptonText}</Text>
-                            {/* <Text style={style.tapcount} >{kasiaTaps}</Text>
-                            <Text style={style.tapcount} >{localShowKasiaTab.toString()}</Text> */}
                         </View>
                 </Pressable>
             </LinearGradient>
-
         )
     }
 
@@ -110,19 +107,7 @@ export default function HomeScreen() {
                     </Pressable>
 
                 </LinearGradient>
-                {/* <View style={style.selectionBox} >
-
-                </View>
-                <View style={style.selectionBox} >
-
-                </View>
-                <View style={style.selectionBox} >
-
-                </View> */}
-
             </ScrollView>
-
-
         </View>
     )
 }
@@ -146,11 +131,11 @@ const style = StyleSheet.create({
         color: 'white',
         paddingTop: 20,
         paddingBottom: 20,
+        paddingHorizontal: 10,
         marginBottom: 10,
     },
     robotHolder: {
         flexDirection: "row",
-        
     },
     robot: {
         marginTop: 10,
@@ -198,21 +183,16 @@ const style = StyleSheet.create({
     },
     logo: {
         width: 80,
-        // backgroundColor: "grey",
         borderRadius: 20,
         justifyContent: "center",
         alignItems: "center",
     },
     descripton: {
         flex: 1,
-        // backgroundColor: "blue",
-        // borderRadius: 20,
         justifyContent: "center",
         alignItems: "center",
         marginVertical: 5,
         marginRight: 10,
-
-
     },
     descriptionBoxText: {
         fontSize: 20,
@@ -221,10 +201,5 @@ const style = StyleSheet.create({
         textShadowColor: "rgba(0, 0, 0, 0.5)",
         textShadowOffset: { width: 1, height: 1 },
         textShadowRadius: 2,
-    },
-    // tapcount: {
-    //     textAlign: 'center',
-    //     fontSize: 30,
-
-    // }
+    }
 })
