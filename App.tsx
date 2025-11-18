@@ -35,7 +35,18 @@ export default function App() {
             options={{ 
               tabBarLabel: '1-9',
               tabBarIcon: () => (
-                <Ionicons name="aperture-outline" size={24} color="#007AFF" />
+                <Ionicons name="options-outline" size={24} color="#007AFF" />
+                // <Ionicons name="aperture-outline" size={24} color="#007AFF" />
+              )
+            }}
+          />
+          <Tab.Screen 
+            name="31"
+            component={Ran3}
+            options={{ 
+              tabBarLabel: '31',
+              tabBarIcon: () => (
+                <Ionicons name="push-outline" size={24} color="#007AFF" />
               )
             }}
           />
@@ -46,16 +57,6 @@ export default function App() {
               tabBarLabel: 'Coin',
               tabBarIcon: () => (
                 <Ionicons name="logo-bitcoin" size={24} color="#007AFF" />
-              )
-            }}
-          />
-          <Tab.Screen 
-            name="31"
-            component={Ran3}
-            options={{ 
-              tabBarLabel: '31',
-              tabBarIcon: () => (
-                <Ionicons name="barbell-outline" size={24} color="#007AFF" />
               )
             }}
           />

@@ -1,10 +1,8 @@
 import { Text } from "react-native"
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, TextInput, View, Pressable } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SegmentedControl from "react-native-segmented-control-2";
-
-
 
 export default function Ran2() {
     const [p1Name, onChangeP1Name] = useState('');
@@ -15,8 +13,11 @@ export default function Ran2() {
     const [p1SelectedIndex, setP1SelectedIndex] = useState(0);
     const [p2SelectedIndex, setP2SelectedIndex] = useState(0);
     const [gameOver, setGameOver] = useState(false);
-    const [p1TurnSelected, setP1TurnSelected] = useState(false);
-    const [p2TurnSelected, setP2TurnSelected] = useState(false);
+    const [p1TurnTaken, setP1TurnTaken] = useState(false);
+    const [p2TurnTaken, setP2TurnTaken] = useState(false);
+    const [p1RandomNumber, setP1RandomNumber] = useState(0);
+    const [p2RandomNumber, setP2RandomNumber] = useState(0);
+    const [row6ButtonText, setRow6ButtonText] = useState('');
 
     function resetGame() {
         onChangeP1Name('');
@@ -27,9 +28,120 @@ export default function Ran2() {
         setP1SelectedIndex(0);
         setP2SelectedIndex(0);
         setGameOver(false);
-        setP1TurnSelected(false);
-        setP2TurnSelected(false);
+        setP1TurnTaken(false);
+        setP2TurnTaken(false);
+        setP1RandomNumber(0);
+        setP2RandomNumber(0);
+        setRow6ButtonText('');
     }
+
+    function handlePlayAgain() {
+        setP1Score(0);
+        setP2Score(0);
+        setP1SelectedIndex(0);
+        setP2SelectedIndex(0);
+        setGameOver(false);
+        setP1TurnTaken(false);
+        setP2TurnTaken(false);
+        setP1RandomNumber(0);
+        setP2RandomNumber(0);
+        setRow6ButtonText('');
+    }
+
+    const generateNumber = async () => {
+        // let num = Math.floor(Math.random() * 9) + 1;
+        // await new Promise(resolve => setTimeout(resolve, 10));
+        let num = await new Promise<number>((resolve) => {
+            setTimeout(() => {
+                resolve(Math.floor(Math.random() * 9) + 1);
+            }, 300);
+        });
+
+        return num;
+    }
+
+    async function takeTurn(player: number) {
+        let finalNumber = 0;
+        if (player === 1) {
+            if (p1SelectedIndex === 1) {
+                setP1TurnTaken(true);
+                return;
+            }
+            setP1TurnTaken(true);
+
+            finalNumber = Math.floor(Math.random() * 9) + 1;
+            setP1RandomNumber(finalNumber);
+            finalNumber = await generateNumber();
+            setP1RandomNumber(finalNumber);
+            finalNumber = await generateNumber();
+            setP1RandomNumber(finalNumber);
+            finalNumber = await generateNumber();
+            setP1RandomNumber(finalNumber);
+            finalNumber = await generateNumber();
+            setP1RandomNumber(finalNumber);
+            finalNumber = await generateNumber();
+            setP1RandomNumber(finalNumber);
+
+            // setP1Score(prev => prev + finalNumber);
+            const newScore = p1Score + finalNumber;
+            setP1Score(newScore);
+            
+            if (newScore > 31) {
+                setGameOver(true);
+            }
+        }
+        if (player === 2) {
+            if (p1SelectedIndex === 2) {
+                setP2TurnTaken(true);
+                return;
+            }
+            setP2TurnTaken(true);
+            
+            finalNumber = Math.floor(Math.random() * 9) + 1;
+            setP2RandomNumber(finalNumber);
+            finalNumber = await generateNumber();
+            setP2RandomNumber(finalNumber);
+            finalNumber = await generateNumber();
+            setP2RandomNumber(finalNumber);
+            finalNumber = await generateNumber();
+            setP2RandomNumber(finalNumber);
+            finalNumber = await generateNumber();
+            setP2RandomNumber(finalNumber);
+            finalNumber = await generateNumber();
+            setP2RandomNumber(finalNumber);
+
+            // setP2Score(prev => prev + finalNumber);
+            const newScore = p2Score + finalNumber;
+            setP2Score(newScore);
+            
+            if (newScore > 31) {
+                setGameOver(true);
+            }
+
+        }
+
+
+
+    }
+
+    const handleNextTurn = () => {
+        if (p1SelectedIndex === 1 && p2SelectedIndex === 1) {
+            setGameOver(true);
+        }
+
+        // setP1SelectedIndex(0);
+        // setP2SelectedIndex(0);
+        setP1TurnTaken(false);
+        setP2TurnTaken(false);
+        setP1RandomNumber(0);
+        setP2RandomNumber(0);
+    }
+
+    const handleEndGame = () => {
+        
+    }
+
+
 
 
     return (
@@ -78,12 +190,12 @@ export default function Ran2() {
                             ></TextInput>
                         </View>
                         <Pressable
-                            style={style.saveButton}
+                            style={[style.saveButton, p1Name !== '' && p2Name !== '' && { backgroundColor: 'rgba(246, 246, 5, 0.8)'}]}
                             onPress={() => {
                                 if (p1Name !== "" && p2Name !== "") {
                                     setPlayersNamed(true)}
                             }}
-                        ><Text>Save Players</Text></Pressable>
+                        ><Text style={style.gameRow4Text}>Save Players</Text></Pressable>
                     </View>
                 </>
             )}
@@ -94,37 +206,95 @@ export default function Ran2() {
                         <Text style={style.gameRow1Text}>{p2Name}</Text>
                     </View>
                     <View style={style.gameRow1}>
-                        <Text style={style.gameRow1Text}>{p1Score + p1SelectedIndex}</Text>
-                        <Text style={style.gameRow1Text}>{p2Score + p2SelectedIndex}</Text>
+                        <Text style={style.gameRow1Text}>{p1Score}</Text>
+                        <Text style={style.gameRow1Text}>{p2Score}</Text>
                     </View>
-                    <View style={style.gameRow1}>
-                        <SegmentedControl
-                         tabs={["Roll", "Stop"]}
-                         style={style.gameRow3Button}
-                         onChange={(index: number) => setP1SelectedIndex(index)}
-                         />
-                        <SegmentedControl
-                         tabs={["Roll", "Stop"]}
-                         style={style.gameRow3Button}
-                         onChange={(index: number) => setP2SelectedIndex(index)}                        
-                        />
-                    </View>
-                    <View style={style.gameRow1}>
-                        <Pressable
-                            style={style.gameRow4Button}
-                        >
-                            <Text style={style.gameRow4Text}>{p1SelectedIndex === 0 ? "Click to roll" : "Click to stop"}</Text>
-                        </Pressable>
-                        <Pressable
-                            style={style.gameRow4Button}
-                        >
-                            <Text style={style.gameRow4Text}>{p2SelectedIndex === 0 ? "Click to roll" : "Click to stop"}</Text>
-                        </Pressable>
-                    </View>
+                    
+                    {!gameOver && (
+                        <>
+                            <View style={style.gameRow1}>
+                                <SegmentedControl
+                                    tabs={["Roll", "Pass"]}
+                                    style={style.gameRow3Button}
+                                    onChange={(index: number) => !p1TurnTaken && setP1SelectedIndex(index)}
+                                    value={p1SelectedIndex}
+                                    
+                                    activeTabColor="rgba(255, 154, 86, 1)"
+                                    activeTextColor="rgb(255, 255, 255)"
+                                />
+                                <SegmentedControl
+                                    tabs={["Roll", "Pass"]}
+                                    style={style.gameRow3Button}
+                                    onChange={(index: number) => !p2TurnTaken && setP2SelectedIndex(index)}
+                                    value={p2SelectedIndex}
+                                    //  onChange={(index: number) => setP2SelectedIndex(index)}                        
+                                    activeTabColor="rgba(255, 154, 86, 1)"
+                                    activeTextColor="rgb(255, 255, 255)"
+                                    //         ['#ff9a56', '#ff6a88'],
+                                />
+                            </View>
+                            <View style={style.gameRow1}>
+                                <Pressable
+                                    style={[style.gameRow4Button, p1TurnTaken && {backgroundColor: "pink"}]}
+                                    onPress={() => !p1TurnTaken && takeTurn(1)}
+                                >
+                                    <Text style={style.gameRow4Text}>{p1SelectedIndex === 0 ? "Click to roll" : "Click to pass"}</Text>
+                                </Pressable>
+                                <Pressable
+                                    style={[style.gameRow4Button, p2TurnTaken && {backgroundColor: "pink"}]}
+                                    // onPress={() => takeTurn(2)}
+                                    onPress={() => !p2TurnTaken && takeTurn(2)}
+                                >
+                                    <Text style={style.gameRow4Text}>{p2SelectedIndex === 0 ? "Click to roll" : "Click to pass"}</Text>
+                                </Pressable>
+                            </View>
+                            <View style={style.gameRow1}>
+                                <Text style={style.gameRow1Text}>Rolled: {p1RandomNumber}</Text>
+                                <Text style={style.gameRow1Text}>Rolled: {p2RandomNumber}</Text>
+                            </View>        
+
+
+
+
+
+                            {/* HERE HERE HERE HERE HERE HERE HERE HERE HERE HERE HERE HERE HERE HERE HERE HERE HERE HERE */}
+
+                            <View style={style.gameRow1}>
+                                <Pressable 
+                                    style={[style.gameRow6Button, p1TurnTaken && p2TurnTaken && { backgroundColor: 'rgba(246, 246, 5, 0.8)'}]}
+                                    onPress={handleNextTurn}
+                                >
+                                    <Text style={style.gameRow5Text}>{(p1TurnTaken && p2TurnTaken && (p1SelectedIndex === 1) && (p2SelectedIndex === 1)) ? "End game" : "Next Turn"}</Text>
+                                </Pressable>
+                            </View>
+                        </>
+                    )}
+                    
                 </View>
             )}
-
-
+            {gameOver && (
+                <>
+                    <View style={style.scoreHolder}>
+                        <Text style={style.scoreText2}>Congratulations!</Text>
+                        {p1Score > p2Score ? (
+                            <Text style={style.scoreText2} >{`${p1Name} is the Winner!!!`}</Text>
+                        ) : (
+                            <Text style={style.scoreText2} >{`${p2Name} is the Winner!!!`}</Text>
+                        )}
+                        {p1Score === p2Score && (
+                            <Text style={style.scoreText2} >{`Its a tie! This was very unlikely!`}</Text>
+                        )}
+                    </View>
+                    <View style={style.gameRow1}>
+                        <Pressable 
+                            style={style.playAgainButton}
+                            onPress={handlePlayAgain}
+                        >
+                            <Text style={style.playAgainText}>Play again?</Text>
+                        </Pressable>
+                    </View>
+                </>
+            )}
         </LinearGradient>
 
     )
@@ -212,8 +382,8 @@ const style = StyleSheet.create({
         borderRadius: 20,
     },
     game: {
-        backgroundColor: "magenta",
-        minHeight: 200,
+        // backgroundColor: "magenta",
+        // minHeight: 200,
         gap: 20,
     },
     gameRow1: {
@@ -222,8 +392,7 @@ const style = StyleSheet.create({
         justifyContent: "center",
     },
     gameRow1Text: {
-        backgroundColor: "red",
-        // alignSelf: "center",s
+        // backgroundColor: "red",
         width: "40%",
         marginHorizontal: 10,
         fontSize: 20,
@@ -231,14 +400,15 @@ const style = StyleSheet.create({
         textAlign: "center",
     },
     gameRow3Button: {
-        backgroundColor: "green",
-        // flex: 1,
+        backgroundColor: 'rgba(246, 246, 5, 0)',
+        borderColor: 'rgba(0, 0, 0, 0.29)',
+        borderWidth: 2,
         width: "45%",
     },
     gameRow4Button: {
-        backgroundColor: "grey",
+        backgroundColor: 'rgba(246, 246, 5, 0.8)',
         marginHorizontal: "auto",
-        paddingHorizontal: 20,
+        // paddingHorizontal: 20,
         alignSelf: "center",
         height: 30,
         borderRadius: 20,
@@ -248,7 +418,57 @@ const style = StyleSheet.create({
     gameRow4Text: {
         textAlign: "center",
         fontSize: 20,
-    }
+    },
+    gameRow5Text: {
+        textAlign: "center",
+        fontSize: 20,
+    },
+    gameRow6Button: {
+        backgroundColor: "pink",
+        marginHorizontal: "auto",
+        paddingHorizontal: 20,
+        alignSelf: "center",
+        height: 30,
+        borderRadius: 20,
+        justifyContent: "center",
+        width: 150,
+    },
+    scoreHolder: {
+        gap: 10,
+
+    },
+    scoreText1: {
+        fontSize: 20,
+        // marginHorizontal: 10,
+        gap: 10,
+        // backgroundColor: "green",
+    },
+    scoreText2: {
+        fontSize: 20,
+        fontWeight: 800,
+        // marginHorizontal: 10,
+        gap: 10,
+        // backgroundColor: "green",
+        textAlign: "center",
+    },
+    playAgainButton: {
+        backgroundColor: 'rgba(246, 246, 5, 0.8)',
+        // marginHorizontal: "auto",
+        // paddingHorizontal: 20,
+        // alignSelf: "center",
+        height: 30,
+        borderRadius: 20,
+        justifyContent: "center",
+        paddingHorizontal: 10,
+        // width: 150,
+
+    },
+    playAgainText: {
+        fontSize: 20,
+        fontWeight: "800",
+        textAlign: "center",
+    },
+
     
 
 

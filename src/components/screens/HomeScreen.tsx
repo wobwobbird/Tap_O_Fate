@@ -90,9 +90,9 @@ export default function HomeScreen() {
                 </View>
                 <View style={style.robotHolder} >{robotArray}</View>
                 <Text style={style.genText} >A collection of random number generators</Text>
-                {selectionBox(handleNavClick, "1-9", "aperture-outline", boxDescriptions[0], boxColour[0] )}
+                {selectionBox(handleNavClick, "1-9", "options-outline", boxDescriptions[0], boxColour[0] )}
+                {selectionBox(handleNavClick, "31", "push-outline", boxDescriptions[2], boxColour[2]  )}
                 {selectionBox(handleNavClick, "Coin", "logo-bitcoin", boxDescriptions[1], boxColour[1]  )}
-                {selectionBox(handleNavClick, "31", "barbell-outline", boxDescriptions[2], boxColour[2]  )}
                 {selectionBox(handleNavClick, "Ran4", "cash-outline", boxDescriptions[3], boxColour[3] )}
                 <LinearGradient colors={['#fbc2eb', '#a6c1ee']} style={style.outerSelectionBox} >
                     <Pressable 
