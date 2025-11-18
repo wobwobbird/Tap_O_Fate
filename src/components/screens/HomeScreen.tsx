@@ -44,7 +44,7 @@ export default function HomeScreen() {
     const boxDescriptions = [
         "Choose a random number between 1 and 9",
         "Coin flip",
-        "Closest to 21",
+        "Closest to 31",
         "Under Construction...",
         "ran5Text",
     ]
@@ -55,25 +55,6 @@ export default function HomeScreen() {
         ['#43e97b', '#38f9d7'],
     ]
 
-    // const selectionBox = (click: any, icon: number) => {
-    //     return (
-    //         <Pressable 
-    //             style={style.selectionBox}
-    //             onPress={() => click}
-    //         >
-    //             <View style={style.logo} >
-    //                 <Ionicons name={icon as any} size={50} color="#007AFF" />
-                    
-    //             </View>
-    //             <View style={style.descripton} >
-    //                 <Text style={style.tapcount} >{kasiaTaps}</Text>
-    //                 <Text style={style.tapcount} >{localShowKasiaTab.toString()}</Text>
-    //             </View>
-
-    //         </Pressable>
-    //     )
-    // }
-
     const selectionBox = (click: any, clickLocation: any, icon: string, descriptonText: string, theBoxColour: any) => {
         return (
             <LinearGradient colors={[theBoxColour[0], theBoxColour[1]]} style={style.outerSelectionBox} >
@@ -83,14 +64,12 @@ export default function HomeScreen() {
                 >
                         <View style={style.logo} >
                             <Ionicons name={icon as any} size={50} color="#ffffff" />
-                            
                         </View>
                         <View style={style.descripton} >
                             <Text style={style.descriptionBoxText} >{descriptonText}</Text>
                             {/* <Text style={style.tapcount} >{kasiaTaps}</Text>
                             <Text style={style.tapcount} >{localShowKasiaTab.toString()}</Text> */}
                         </View>
-
                 </Pressable>
             </LinearGradient>
 
@@ -113,7 +92,7 @@ export default function HomeScreen() {
                 <Text style={style.genText} >A collection of random number generators</Text>
                 {selectionBox(handleNavClick, "1-9", "aperture-outline", boxDescriptions[0], boxColour[0] )}
                 {selectionBox(handleNavClick, "Coin", "logo-bitcoin", boxDescriptions[1], boxColour[1]  )}
-                {selectionBox(handleNavClick, "21", "barbell-outline", boxDescriptions[2], boxColour[2]  )}
+                {selectionBox(handleNavClick, "31", "barbell-outline", boxDescriptions[2], boxColour[2]  )}
                 {selectionBox(handleNavClick, "Ran4", "cash-outline", boxDescriptions[3], boxColour[3] )}
                 <LinearGradient colors={['#fbc2eb', '#a6c1ee']} style={style.outerSelectionBox} >
                     <Pressable 
