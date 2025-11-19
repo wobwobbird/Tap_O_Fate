@@ -97,9 +97,9 @@ export default function HomeScreen() {
                 </View>
                 <View style={style.robotHolder} >{robotArray}</View>
                 <Text style={style.genText} >A collection of random number generators</Text>
+                {selectionBox(handleNavClick, "The Selector", "aperture", boxNames[3], boxDescriptions[3], boxColour[3] )}
                 {selectionBox(handleNavClick, "Battle For 100", "options-outline", boxNames[0], boxDescriptions[0], boxColour[0] )}
-                {selectionBox(handleNavClick, "Closest To 31", "push-outline", boxNames[2], boxDescriptions[2], boxColour[2]  )}
-                {selectionBox(handleNavClick, "The Selector", "cash-outline", boxNames[3], boxDescriptions[3], boxColour[3] )}
+                {selectionBox(handleNavClick, "Closest To 31", "push", boxNames[2], boxDescriptions[2], boxColour[2]  )}
                 {selectionBox(handleNavClick, "Coin Flip", "logo-bitcoin", boxNames[1], boxDescriptions[1], boxColour[1]  )}
                 <Pressable 
                     style={style.outerSelectionBox}
@@ -107,7 +107,7 @@ export default function HomeScreen() {
                 >
                     <LinearGradient colors={[boxColour[4][0], boxColour[4][1]]} style={style.selectionBox} >
                         <View style={style.logo} >
-                            <Ionicons name="people-circle-outline" size={50} color="rgba(0, 0, 0, 0.8)" />
+                            <Ionicons name="people-circle" size={50} color="rgba(0, 0, 0, 0.8)" />
                         </View>
                         <View style={style.descripton} >
                             <Text style={style.descriptionBoxTitle}>{boxNames[4]}</Text>

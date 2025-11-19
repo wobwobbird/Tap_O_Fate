@@ -25,9 +25,19 @@ export default function App() {
             options={{ 
               tabBarLabel: 'Home',
               tabBarIcon: () => (
-                <Ionicons name="home-outline" size={24} color="#007AFF" />
+                <Ionicons name="home" size={24} color="#007AFF" />
               )
             }}
+            />
+            <Tab.Screen 
+              name="The Selector"
+              component={TheSelector}
+              options={{ 
+                tabBarLabel: 'Selector',
+                tabBarIcon: () => (
+                  <Ionicons name="aperture" size={24} color="#007AFF" />
+                )
+              }}
             />
           <Tab.Screen 
             name="Battle For 100"
@@ -45,17 +55,7 @@ export default function App() {
             options={{ 
               tabBarLabel: '31',
               tabBarIcon: () => (
-                <Ionicons name="push-outline" size={24} color="#007AFF" />
-              )
-            }}
-          />
-          <Tab.Screen 
-            name="The Selector"
-            component={TheSelector}
-            options={{ 
-              tabBarLabel: 'Selector',
-              tabBarIcon: () => (
-                <Ionicons name="cash-outline" size={24} color="#007AFF" />
+                <Ionicons name="push" size={24} color="#007AFF" />
               )
             }}
           />
@@ -75,7 +75,7 @@ export default function App() {
             options={{ 
               tabBarLabel: 'Kasias',
               tabBarIcon: () => (
-                <Ionicons name="people-circle-outline" size={24} color="#007AFF" />
+                <Ionicons name="people-circle" size={24} color="#007AFF" />
               )
             }}
           />
