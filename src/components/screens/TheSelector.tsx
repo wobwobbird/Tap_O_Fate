@@ -56,8 +56,6 @@ export default function TheSelector() {
         checkSaveCanClick();
     }, [sliderNumber, players])
 
-
-
     const playerSelect = (index: number) => {
         return (
             <View key={index} style={style.nameInput}>
@@ -81,14 +79,6 @@ export default function TheSelector() {
                     }}
                     value={players[index]?.number || ""}
                 ></TextInput>
-                {/* <Pressable
-                    style={style.nameInputSaveButton}
-                    onPress={() => {
-                        setPlayers([...players, {name: '', number: ''}]);
-                    }}
-                >
-                    <Text>Save</Text>
-                </Pressable> */}
             </View>
         )
     }
@@ -138,24 +128,17 @@ export default function TheSelector() {
         setRandomNumberSelected(true);
 
         const winner = checkForWinningNumber(finalNumber);
-
         if (winner) {
             setGameEnded(true);
             setWinnerName(winner.name);
         }
     }
 
-
-
     return (
         <LinearGradient 
         colors={['#43e97b', '#38f9d7']}
         style={style.pageContainer}
         >
-            {/* <Text>Hello, World 4</Text>
-            <View  >
-                <Text style={style.taps} >Under Construction...</Text>
-            </View> */}
             <Text style={style.title} >The Selector</Text>
             <View style={style.howTo}>
                 <Text style={style.howToText}>Select a number to play between</Text>
@@ -222,12 +205,6 @@ export default function TheSelector() {
                             </View>
                                 
                         ))}
-                        
-                        {/* {playerList()}
-                        {playerList()}
-                        {playerList()}
-                        {playerList()}
-                        {playerList()} */}
                     </View>
                     <Pressable
                         style={style.selectNumberButton}
@@ -264,24 +241,9 @@ export default function TheSelector() {
                     </View> */}
                 </>
             )}
-
-
         </LinearGradient>
-
     )
 }
-
-{/* <Slider
-style={style.slider}
-minimumValue={0}
-maximumValue={70}
-step={1}
-value={p1Points}
-minimumTrackTintColor='rgba(27, 234, 253, 0.83)'
-maximumTrackTintColor="#000000"
-
-/> */}
-
 
 const style = StyleSheet.create({
     pageContainer: {
@@ -361,7 +323,6 @@ const style = StyleSheet.create({
         backgroundColor: 'rgba(175, 175, 175, 0.83)',
         paddingVertical: 5,
         paddingHorizontal: 10,
-        // width: '',
         alignSelf: 'center',
         borderRadius: 15,
     },
@@ -396,7 +357,6 @@ const style = StyleSheet.create({
     },
     theRandomNumberTheNumber: {
     },
-
     scoreHolder: {
         gap: 10,
     },
@@ -410,7 +370,4 @@ const style = StyleSheet.create({
         gap: 10,
         textAlign: "center",
     },
-
-
-
 })
