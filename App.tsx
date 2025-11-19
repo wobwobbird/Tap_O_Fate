@@ -3,7 +3,7 @@ import { StyleSheet, ViewStyle, } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from 'src/components/screens/HomeScreen';
-import KasiaScreen from 'src/components/screens/KasiaScreen';
+import KasiasScreen from 'src/components/screens/KasiasScreen';
 import BattleFor100 from 'src/components/screens/BattleFor100';
 import CoinFlip from 'src/components/screens/CoinFlip';
 import ClosestTo31 from 'src/components/screens/ClosestTo31';
@@ -50,16 +50,6 @@ export default function App() {
             }}
           />
           <Tab.Screen 
-            name="Coin Flip"
-            component={CoinFlip}
-            options={{ 
-              tabBarLabel: 'Coin Flip',
-              tabBarIcon: () => (
-                <Ionicons name="logo-bitcoin" size={24} color="#007AFF" />
-              )
-            }}
-          />
-          <Tab.Screen 
             name="The Selector"
             component={TheSelector}
             options={{ 
@@ -69,9 +59,19 @@ export default function App() {
               )
             }}
           />
+          <Tab.Screen 
+            name="Coin Flip"
+            component={CoinFlip}
+            options={{ 
+              tabBarLabel: 'Coin Flip',
+              tabBarIcon: () => (
+                <Ionicons name="logo-bitcoin" size={24} color="#007AFF" />
+              )
+            }}
+          />
           <Tab.Screen
             name="The Three Kasias"
-            component={KasiaScreen}
+            component={KasiasScreen}
             options={{ 
               tabBarLabel: 'Kasias',
               tabBarIcon: () => (

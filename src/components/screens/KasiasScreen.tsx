@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import { useStateContext } from "src/context/StateContext";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default function KasiaScreen() {
+export default function KasiasScreen() {
     const [data, setData] = useState(kasiaText);
     const [showKasia, setShowKasia] = useState(false);
     
@@ -61,19 +61,14 @@ const kasiaText = ["I Love BABY KASIA", "I Love SISTER KASIA", "I Love MOTHER KA
 
 const styles = StyleSheet.create({
     textarea: {
-        // margin: 100,
         padding: 10,
         width: '100%',
-        // alignSelf: 'stretch',
-        // height: 200,
-        // backgroundColor: "blue",
         gap: 30,
-
       },
       text: {
         fontSize: 26,
         textAlign: "center",
-
+        fontWeight: 500,
       },
       tapsContainer: {
         flex: 1,
@@ -83,7 +78,5 @@ const styles = StyleSheet.create({
       taps: {
         fontSize: 30,
         textAlign: "center",
-
-        // writingDirection: "rtl",
-      },
+    },
 })

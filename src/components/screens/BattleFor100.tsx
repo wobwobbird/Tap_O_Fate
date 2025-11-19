@@ -93,8 +93,8 @@ export default function BattleFor100() {
 
             </View>
             <View style={style.playerInfo}>
-                    <Text style={style.display} >{"Player 1 | " + p1Name + " | Number : " + p1Number}</Text>
-                    <Text style={style.display} >{"Player 2 | " + p2Name + " | Number : " + p2Number}</Text>
+                    <Text style={style.display} >{p1Name === "" && p1Number === "" ? "Player 1" : `Player 1 ${p1Name} | Number : ${p1Number}`}</Text>
+                    <Text style={style.display} >{p2Name === "" && p2Number === "" ? "Player 2" : `Player 2 ${p2Name} | Number : ${p2Number}`}</Text>
             </View>
 
             {!playerInfoSaved ? (

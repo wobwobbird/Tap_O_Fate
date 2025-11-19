@@ -12,34 +12,37 @@ export default function TheSelector() {
     const [currentInput, setCurrentInput] = useState('');
     const [players, setPlayers] = useState<Array<{ name: string; number: string }>>([ { name: '', number: ''}]);
 
-    const [playerNames, setPlayerNames] = useState<string[]>([]);
-    const [playerInputCount, setPlayerInputCount] = useState(1);
-
     const playerSelect = (index: number) => {
         return (
-            <View style={style.nameInput}>
+            <View key={index} style={style.nameInput}>
                 <TextInput
                     style={style.nameInputBox}
                     placeholder="Enter name"
-                    onChangeText={setCurrentInput}
-                    value={currentInput}
-                    onSubmitEditing={() => {
-                        if (currentInput.trim()) {
-                            setPlayerNames((prev) => [...prev, currentInput.trim()]);
-                            setCurrentInput('');
-                        }
+                    onChangeText={(text) => {
+                        const updatedPlayers = [...players];
+                        updatedPlayers[index] = { ...updatedPlayers[index], name: text};
+                        setPlayers(updatedPlayers);
                     }}
+                    value={players[index]?.name || ""}
                 ></TextInput>
                 <TextInput
                     style={style.nameInputNumber}
                     placeholder="Select Number"
+                    onChangeText={(text) => {
+                        const updatedPlayers = [...players];
+                        updatedPlayers[index] = { ...updatedPlayers[index], number: text};
+                        setPlayers(updatedPlayers);
+                    }}
+                    value={players[index]?.number || ""}
                 ></TextInput>
-                <Pressable
+                {/* <Pressable
                     style={style.nameInputSaveButton}
-                    // onPress={}
+                    onPress={() => {
+                        setPlayers([...players, {name: '', number: ''}]);
+                    }}
                 >
                     <Text>Save</Text>
-                </Pressable>
+                </Pressable> */}
             </View>
         )
     }
@@ -69,10 +72,12 @@ export default function TheSelector() {
                 <Text>Select a number to play between</Text>
 
                 <Text>Enter player names</Text>
-                {playerSelect()}
+                {players.map((_, index) => playerSelect(index))}
                 <Pressable 
                     style={style.namePanelAddPlayer}
-                    // onPress={}
+                    onPress={() => {
+                        setPlayers([...players, {name: '', number: ''}]);
+                    }}
                 >
                     <Ionicons name="add-circle-sharp" size={20} color='rgba(0, 0, 0, 0.29)' ></Ionicons>
 
@@ -90,8 +95,6 @@ const style = StyleSheet.create({
         flex: 1,
         padding: 10,
         gap: 10,
-        // justifyContent: "center",
-        // alignItems: "center"
     },
     title: {
         fontSize: 20,
@@ -121,24 +124,17 @@ const style = StyleSheet.create({
     },
     nameInput: {
         flexDirection: "row",
-        // backgroundColor: "red",
-        // width: 300,
         justifyContent: "flex-end",
         gap: 10,
-        // flex: 1,
     },
     nameInputBox: {
-        // height: 30,
-        // backgroundColor: "green",
         flex: 1,
-        // margin: 10,
         borderRadius: 15,
         borderWidth: 2,
         borderColor: 'rgba(0, 0, 0, 0.29)',
         padding: 10,
     },
     nameInputNumber: {
-        // width: 50,
         borderRadius: 15,
         borderWidth: 2,
         borderColor: 'rgba(0, 0, 0, 0.29)',
@@ -147,7 +143,6 @@ const style = StyleSheet.create({
     nameInputSaveButton: {
         width: 50,
         height: 50,
-        // backgroundColor: "blue",
         borderRadius: 15,
         borderWidth: 2,
         borderColor: 'rgba(0, 0, 0, 0.29)',
@@ -163,7 +158,6 @@ const style = StyleSheet.create({
     namePanelAddPlayerText: {
         color: 'rgba(0, 0, 0, 0.40)',
         fontWeight: 700,
-
     }
 
 })

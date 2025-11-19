@@ -180,8 +180,8 @@ export default function ClosestTo31() {
             {!playersNamed && (
                 <>
                     <View style={style.playerInfo}>
-                            <Text style={style.display} >{"Player 1 | " + p1Name}</Text>
-                            <Text style={style.display} >{"Player 2 | " + p2Name}</Text>
+                            <Text style={style.display} >{p1Name === "" ? "Player 1" : `Player 1 | ${p1Name}`}</Text>
+                            <Text style={style.display} >{p2Name === "" ? "Player 2" : `Player 2 | ${p2Name}`}</Text>
                     </View>
                     <View style={style.playerInput}>
                         <View style={style.playerInputHolder}>
