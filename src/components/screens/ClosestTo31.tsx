@@ -53,16 +53,7 @@ export default function ClosestTo31() {
         setP2TurnHappening(false);
         setWinnerName('');
     }
-
-    const generateNumber = async (time: number) => {
-        let num = await new Promise<number>((resolve) => {
-            setTimeout(() => {
-                resolve(Math.floor(Math.random() * 9) + 1);
-            }, time); //300
-        });
-        return num;
-    }
-
+    
     const calculateWinner = (score1: number, score2: number) => {
         if (score1 > 31) {
             setWinnerName(p2Name);
@@ -79,6 +70,15 @@ export default function ClosestTo31() {
             setWinnerName(p2Name);
             return;
         }
+    }
+
+    const generateNumber = async (time: number) => {
+        let num = await new Promise<number>((resolve) => {
+            setTimeout(() => {
+                resolve(Math.floor(Math.random() * 9) + 1);
+            }, time); //300
+        });
+        return num;
     }
     
     async function takeTurn(player: number) {
@@ -278,14 +278,6 @@ export default function ClosestTo31() {
                     <View style={style.scoreHolder}>
                         <Text style={style.scoreText2}>Congratulations!</Text>
                         <Text style={style.scoreText2} >{`${winnerName} is the Winner!!!`}</Text>
-                        {/* {p1Score > p2Score ? (
-                            <Text style={style.scoreText2} >{`${p1Name} is the Winner!!!`}</Text>
-                        ) : (
-                            <Text style={style.scoreText2} >{`${p2Name} is the Winner!!!`}</Text>
-                        )}
-                        {p1Score === p2Score && (
-                            <Text style={style.scoreText2} >{`Its a tie! This was very unlikely!`}</Text>
-                        )} */}
                     </View>
                     <View style={style.gameRow1}>
                         <Pressable 
