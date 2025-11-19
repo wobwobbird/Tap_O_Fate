@@ -4,7 +4,7 @@ import { StyleSheet, TextInput, View, Pressable } from "react-native";
 import { useState, useRef } from "react";
 
 
-export default function Ran2() {
+export default function CoinFlip() {
     const [selectedCoin, setSelectedCoin] = useState('');
     const [isCoinSelected, setIsCoinSelected] = useState(false);
     const [isFlipping, setIsFlipping] = useState(false);

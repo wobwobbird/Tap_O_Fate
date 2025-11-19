@@ -7,7 +7,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Pressable } from "react-native";
 import Slider from '@react-native-community/slider';
 
-export default function Ran1() {
+export default function BattleFor100() {
     // Set up
     const [p1Name, onChangeP1Name] = useState('');
     const [p2Name, onChangeP2Name] = useState('');
@@ -77,7 +77,7 @@ export default function Ran1() {
             colors={['#667eea', '#764ba2']}
             style={style.pageContainer}
         >
-            <Text style={style.title} >Random Number Generator: 1-9</Text>
+            <Text style={style.title} >Battle For 100</Text>
             <View style={style.howTo}>
                 <Text style={style.howToText}>Choose a number each between 1 & 9</Text>
                 <Text style={style.howToText}>Each turn a random number is closen, if it matches your number you get a point</Text>r

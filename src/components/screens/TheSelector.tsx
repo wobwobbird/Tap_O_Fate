@@ -8,12 +8,14 @@ import Slider from '@react-native-community/slider';
 
 
 
-export default function Ran4() {
+export default function TheSelector() {
     const [currentInput, setCurrentInput] = useState('');
+    const [players, setPlayers] = useState<Array<{ name: string; number: string }>>([ { name: '', number: ''}]);
+
     const [playerNames, setPlayerNames] = useState<string[]>([]);
     const [playerInputCount, setPlayerInputCount] = useState(1);
 
-    const playerSelect = () => {
+    const playerSelect = (index: number) => {
         return (
             <View style={style.nameInput}>
                 <TextInput
@@ -40,7 +42,6 @@ export default function Ran4() {
                 </Pressable>
             </View>
         )
-
     }
 
     return (

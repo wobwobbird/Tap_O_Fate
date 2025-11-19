@@ -41,12 +41,20 @@ export default function HomeScreen() {
         console.log("clicked");
     }
 
+    const boxNames = [
+        "Battle For 100",
+        "Coin Flip",
+        "Closest To 31",
+        "The Selector",
+        "The Three Kasias"
+    ]
+
     const boxDescriptions = [
-        "Choose a random number between 1 and 9",
-        "Coin flip",
-        "Closest to 31",
-        "Under Construction...",
-        "ran5Text",
+        "Select 1-9, battle it out over 100 points ",
+        "Heads or Tails. Can you win",
+        "Are close do you dare to go",
+        "Who selects wins. Select a range and number. The rest is history ",
+        "Tap tap tap...",
     ]
     const boxColour = [
         ['#667eea', '#764ba2'],
@@ -55,7 +63,7 @@ export default function HomeScreen() {
         ['#43e97b', '#38f9d7'],
     ]
 
-    const selectionBox = (click: any, clickLocation: any, icon: string, descriptonText: string, theBoxColour: any) => {
+    const selectionBox = (click: any, clickLocation: any, icon: string, descriptionTitle: string, descriptonText: string, theBoxColour: any) => {
         return (
             <LinearGradient colors={[theBoxColour[0], theBoxColour[1]]} style={style.outerSelectionBox} >
                 <Pressable 
@@ -63,9 +71,10 @@ export default function HomeScreen() {
                         onPress={() => click(clickLocation)}
                 >
                         <View style={style.logo} >
-                            <Ionicons name={icon as any} size={50} color="#ffffff" />
+                            <Ionicons name={icon as any} size={40} color="#ffffff" />
                         </View>
                         <View style={style.descripton} >
+                            <Text style={style.descriptionBoxTitle}>{descriptionTitle}</Text>
                             <Text style={style.descriptionBoxText} >{descriptonText}</Text>
                         </View>
                 </Pressable>
@@ -87,10 +96,10 @@ export default function HomeScreen() {
                 </View>
                 <View style={style.robotHolder} >{robotArray}</View>
                 <Text style={style.genText} >A collection of random number generators</Text>
-                {selectionBox(handleNavClick, "1-9", "options-outline", boxDescriptions[0], boxColour[0] )}
-                {selectionBox(handleNavClick, "31", "push-outline", boxDescriptions[2], boxColour[2]  )}
-                {selectionBox(handleNavClick, "Coin", "logo-bitcoin", boxDescriptions[1], boxColour[1]  )}
-                {selectionBox(handleNavClick, "Ran4", "cash-outline", boxDescriptions[3], boxColour[3] )}
+                {selectionBox(handleNavClick, "Battle For 100", "options-outline", boxNames[0], boxDescriptions[0], boxColour[0] )}
+                {selectionBox(handleNavClick, "Closest To 31", "push-outline", boxNames[1], boxDescriptions[2], boxColour[2]  )}
+                {selectionBox(handleNavClick, "Coin Flip", "logo-bitcoin", boxNames[2], boxDescriptions[1], boxColour[1]  )}
+                {selectionBox(handleNavClick, "The Selector", "cash-outline", boxNames[3], boxDescriptions[3], boxColour[3] )}
                 <LinearGradient colors={['#fbc2eb', '#a6c1ee']} style={style.outerSelectionBox} >
                     <Pressable 
                         style={style.selectionBox}
@@ -182,23 +191,36 @@ const style = StyleSheet.create({
 
     },
     logo: {
-        width: 80,
+        width: 60,
         borderRadius: 20,
         justifyContent: "center",
         alignItems: "center",
+        // backgroundColor: "green",
     },
     descripton: {
         flex: 1,
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
         marginVertical: 5,
-        marginRight: 10,
+        marginRight: 20,
+        // backgroundColor: "green",
+        gap: 3,
+        // paddingTop: 5,
     },
-    descriptionBoxText: {
+    descriptionBoxTitle: {
         fontSize: 20,
         fontWeight: 600,
         color: "white",
-        textShadowColor: "rgba(0, 0, 0, 0.5)",
+        textShadowColor: "rgba(0, 0, 0, 1)",
+        textShadowOffset: { width: 1, height: 1 },
+        textShadowRadius: 2,
+    },
+    descriptionBoxText: {
+        fontSize: 18,
+        fontWeight: 400,
+        color: "white",
+        textAlign: "center",
+        textShadowColor: "rgba(0, 0, 0, 1)",
         textShadowOffset: { width: 1, height: 1 },
         textShadowRadius: 2,
     }

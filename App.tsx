@@ -4,10 +4,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from 'src/components/screens/HomeScreen';
 import KasiaScreen from 'src/components/screens/KasiaScreen';
-import Ran1 from 'src/components/screens/Ran1';
-import Ran2 from 'src/components/screens/Ran2';
-import Ran3 from 'src/components/screens/Ran3';
-import Ran4 from 'src/components/screens/Ran4';
+import BattleFor100 from 'src/components/screens/BattleFor100';
+import CoinFlip from 'src/components/screens/CoinFlip';
+import ClosestTo31 from 'src/components/screens/ClosestTo31';
+import TheSelector from 'src/components/screens/TheSelector';
 import { Ionicons } from '@expo/vector-icons';
 import StateProvider from 'src/context/StateContext';
 
@@ -30,18 +30,18 @@ export default function App() {
             }}
             />
           <Tab.Screen 
-            name="1-9"
-            component={Ran1}
+            name="Battle For 100"
+            component={BattleFor100}
             options={{ 
-              tabBarLabel: '1-9',
+              tabBarLabel: 'Battle 100',
               tabBarIcon: () => (
                 <Ionicons name="options-outline" size={24} color="#007AFF" /> //aperture-outline
               )
             }}
           />
           <Tab.Screen 
-            name="31"
-            component={Ran3}
+            name="Closest To 31"
+            component={ClosestTo31}
             options={{ 
               tabBarLabel: '31',
               tabBarIcon: () => (
@@ -50,27 +50,27 @@ export default function App() {
             }}
           />
           <Tab.Screen 
-            name="Coin"
-            component={Ran2}
+            name="Coin Flip"
+            component={CoinFlip}
             options={{ 
-              tabBarLabel: 'Coin',
+              tabBarLabel: 'Coin Flip',
               tabBarIcon: () => (
                 <Ionicons name="logo-bitcoin" size={24} color="#007AFF" />
               )
             }}
           />
           <Tab.Screen 
-            name="Ran4"
-            component={Ran4}
+            name="The Selector"
+            component={TheSelector}
             options={{ 
-              tabBarLabel: 'Ran4',
+              tabBarLabel: 'Selector',
               tabBarIcon: () => (
                 <Ionicons name="cash-outline" size={24} color="#007AFF" />
               )
             }}
           />
           <Tab.Screen
-            name="Kasia"
+            name="The Three Kasias"
             component={KasiaScreen}
             options={{ 
               tabBarLabel: 'Kasias',

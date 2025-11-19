@@ -4,7 +4,7 @@ import { StyleSheet, TextInput, View, Pressable } from "react-native";
 import { useState, useEffect } from "react";
 import SegmentedControl from "react-native-segmented-control-2";
 
-export default function Ran2() {
+export default function ClosestTo31() {
     const [p1Name, onChangeP1Name] = useState('');
     const [p2Name, onChangeP2Name] = useState('');
     const [playersNamed, setPlayersNamed] = useState(false);
@@ -164,7 +164,7 @@ export default function Ran2() {
             colors={['#ff9a56', '#ff6a88']}
             style={style.pageContainer}
         >
-            <Text style={style.title} >Random Number Generator: 31</Text>
+            <Text style={style.title} >Closest To 31</Text>
             <View style={style.howTo}>
                 <Text style={style.howToText}>The closest to 31 wins</Text>
                 <Text style={style.howToText}>When it's your turn, either go, or hold</Text>
