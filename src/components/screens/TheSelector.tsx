@@ -1,4 +1,4 @@
-import { Text } from "react-native"
+import { ScrollView, Text } from "react-native"
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, TextInput, View, Pressable, Image } from "react-native";
 import { useState, useEffect } from "react";
@@ -38,6 +38,14 @@ export default function TheSelector() {
     const checkSaveCanClick = () => {
         for (let i = 0; i < players.length; i++) {
             const playerNumber = parseInt(players[i].number) || 0;
+            if (players[i].name === '') {
+                setSaveCheckAllowed(false);
+                return;                
+            }
+            if (sliderNumber == 0) {
+                setSaveCheckAllowed(false);
+                return;                
+            }
             if (playerNumber === 0) {
                 setSaveCheckAllowed(false);
                 return;
@@ -102,7 +110,7 @@ export default function TheSelector() {
     const generateNumber = async (time: number) => {
         let num = await new Promise<number>((resolve) => {
             setTimeout(() => {
-                resolve(Math.floor(Math.random() * 9) + 1);
+                resolve(Math.floor(Math.random() * sliderNumber) + 1);
             }, time); //300
         });
         return num;
@@ -112,7 +120,7 @@ export default function TheSelector() {
         let finalNumber = 0;
 
         setRandomNumberSelected(false);
-        finalNumber = Math.floor(Math.random() * 9) + 1;
+        finalNumber = Math.floor(Math.random() * sliderNumber) + 1;
         setRandomNumber(finalNumber);
         finalNumber = await generateNumber(300);
         setRandomNumber(finalNumber);
@@ -134,113 +142,140 @@ export default function TheSelector() {
         }
     }
 
+    const numberRangeDisplay = () => {
+        return Array.from( {length: sliderNumber }, (_, index) => (
+            <View key={index} style={style.numberRangeIndividual}>
+                {/* <Text>{index + 1}</Text> */}
+
+            </View>
+        ));
+    }
+
+    // const numberRangeDisplay = () => {
+    //     return (
+    //     )
+    // }
+
     return (
         <LinearGradient 
         colors={['#43e97b', '#38f9d7']}
         style={style.pageContainer}
         >
             <Text style={style.title} >The Selector</Text>
-            <View style={style.howTo}>
-                <Text style={style.howToText}>Select a number to play between</Text>
-                <Text style={style.howToText}>Choose name and number</Text>
-                <Text style={style.howToText}>A random number is generated, if yours is selected you win</Text>
-                <Pressable>
-                    <Text 
-                        style={style.howToTextReset}
-                        onPress={resetGame}
-                    >Click here to reset</Text>
-                </Pressable>
-            </View>
-            {!namesSaved && (
-                <View style={style.namePanel}>
-
-                    <Text>Enter player names</Text>
-                    {players.map((_, index) => playerSelect(index))}
-                    <View style={style.namePanelAddRemove}>
-                        <Pressable 
-                            style={style.namePanelAddPlayer}
-                            onPress={() => {
-                                setPlayers([...players, {name: '', number: ''}]);
-                            }}
-                        >
-                            <Ionicons name="add-circle" size={20} color='rgba(0, 0, 0, 0.29)' ></Ionicons>
-                            <Text style={style.namePanelAddPlayerText}>Add player</Text>
+            <ScrollView >
+                <View style={style.scrollPageContainer}>
+                    <View style={style.howTo}>
+                        <Text style={style.howToText}>Select a number to play between</Text>
+                        <Text style={style.howToText}>Choose name and number</Text>
+                        <Text style={style.howToText}>A random number is generated, if yours is selected you win</Text>
+                        <Pressable>
+                            <Text 
+                                style={style.howToTextReset}
+                                onPress={resetGame}
+                            >Click here to reset</Text>
                         </Pressable>
-                        {players.length > 0 && (
-                            <Pressable 
-                            style={style.namePanelAddPlayer}
-                            onPress={() => {
-                                setPlayers(players.slice(0, -1));
-                            }}
-                            >
-                                <Text style={style.namePanelAddPlayerText}>Remove player</Text>
-                                <Ionicons name="remove-circle" size={20} color='rgba(0, 0, 0, 0.29)' ></Ionicons>
-                            </Pressable>
-                        )}
                     </View>
-                    <Text>{`Select a number to play between${sliderNumber === 0 ? '' : `: ${sliderNumber}`}`}</Text>
-                    <Slider
-                        minimumValue={0}
-                        maximumValue={100}
-                        minimumTrackTintColor='rgba(0, 148, 32, 0.83)'
-                        onValueChange={setSliderNumber}
-                        value={sliderNumber}
-                        step={1}
-                    />
-                    <Pressable // TODO: add disabled={!saveCheckAllowed}
-                        onPress={saveCheckAllowed ? () => setNamesSaved(true) : undefined}
-                    >
-                        <Text style={[style.nameSaveButton, saveCheckAllowed && {backgroundColor: 'rgba(0, 148, 32, 0.83)' }]}>Save & Continue</Text>
-                    </Pressable>
-                    <Text>{saveCheckAllowed}</Text>
+                    {!namesSaved && (
+                        <View style={style.namePanel}>
 
-                </View>
-            )}
-            {/* {!namesSaved && ( */}
-                <>
-                    <View style={style.playerListWrapper}>
-                        {players.map((player, index) => (
-                            <View style={style.playerListIndividual} key={index}>
-                                {playerList(player)}
+                            <Text>Enter player names</Text>
+                            {players.map((_, index) => playerSelect(index))}
+                            <View style={style.namePanelAddRemove}>
+                                <Pressable 
+                                    style={style.namePanelAddPlayer}
+                                    onPress={() => {
+                                        setPlayers([...players, {name: '', number: ''}]);
+                                    }}
+                                >
+                                    <Ionicons name="add-circle" size={20} color='rgba(0, 0, 0, 0.29)' ></Ionicons>
+                                    <Text style={style.namePanelAddPlayerText}>Add player</Text>
+                                </Pressable>
+                                {players.length > 0 && (
+                                    <Pressable 
+                                    style={style.namePanelAddPlayer}
+                                    onPress={() => {
+                                        setPlayers(players.slice(0, -1));
+                                    }}
+                                    >
+                                        <Text style={style.namePanelAddPlayerText}>Remove player</Text>
+                                        <Ionicons name="remove-circle" size={20} color='rgba(0, 0, 0, 0.29)' ></Ionicons>
+                                    </Pressable>
+                                )}
                             </View>
-                                
-                        ))}
-                    </View>
-                    <Pressable
-                        style={style.selectNumberButton}
-                        onPress={() => takeTurn()}
-                        disabled={gameEnded}
-                    >
-                        <Text>Select Number!</Text>
-                    </Pressable>
-                    <View style={[style.theRandomNumberHolder, randomNumberSelected && { backgroundColor: 'rgba(0, 148, 32, 0.83)', }]}>
-                        <Text>Random Number: </Text>
-                        <Text style={style.theRandomNumberTheNumber}>{randomNumber}</Text>
-                    </View>
-                </>
-            {/* )} */}
-            {gameEnded && (
-                <>
-                    <View style={style.scoreHolder}>
-                        <Text style={style.scoreText2}>Congratulations!</Text>
-                        <Text style={style.scoreText2} >{`${winnerName} is the Winner!!!`}</Text>
-                    </View>
-                    <Pressable
-                        style={style.selectNumberButton}
-                        onPress={() => playAGain()}
-                    >
-                        <Text>Play again?</Text>
-                    </Pressable>
-                    {/* <View style={style.gameRow1}>
-                        <Pressable 
-                            style={style.playAgainButton}
-                            onPress={handlePlayAgain}
-                        >
-                            <Text style={style.playAgainText}>Play again?</Text>
-                        </Pressable>
-                    </View> */}
-                </>
-            )}
+                            <Text>{`Select a number to play between${sliderNumber === 0 ? '' : `: 1-${sliderNumber}`}`}</Text>
+                            <Slider
+                                minimumValue={0}
+                                maximumValue={100}
+                                minimumTrackTintColor='rgba(0, 148, 32, 0.83)'
+                                onValueChange={setSliderNumber}
+                                value={sliderNumber}
+                                step={1}
+                            />
+                            <Pressable // TODO: add disabled={!saveCheckAllowed}
+                                onPress={saveCheckAllowed ? () => setNamesSaved(true) : undefined}
+                            >
+                                <Text style={[style.nameSaveButton, saveCheckAllowed && {backgroundColor: 'rgba(0, 148, 32, 0.83)' }]}>Save & Continue</Text>
+                            </Pressable>
+                            <Text>{saveCheckAllowed}</Text>
+                        </View>
+                    )}
+                    {namesSaved && (
+                        <View style={style.gameWrapper}>
+                            <View style={ {gap: 5} }>
+                                <Text style={style.rangeText}>{`Number range: 1-${sliderNumber}`}</Text>
+                                <View style={style.numberRange}>
+                                    {numberRangeDisplay()}                                
+                                </View>
+                            </View>
+                            <View style={style.playerListWrapper}>
+                                {players.map((player, index) => (
+                                    <View style={style.playerListIndividual} key={index}>
+                                        {playerList(player)}
+                                    </View>
+                                ))}
+                            </View>
+                            {/* <Pressable
+                                style={style.selectNumberButton}
+                                onPress={() => takeTurn()}
+                                disabled={gameEnded}
+                            >
+                                <Text>Select Number</Text>
+                            </Pressable> */}
+                            <Pressable 
+                                style={[style.theRandomNumberHolder, randomNumberSelected && { backgroundColor: 'rgba(85, 228, 50, 0.83)'}]}
+                                onPress={() => takeTurn()}
+                                disabled={gameEnded}
+                            >
+                                <Text style={style.theRandomNumberHolderText}>Click For</Text>
+                                <Text style={style.theRandomNumberHolderText}>Random Number</Text>
+                                <Text style={style.theRandomNumberTheNumber}>{randomNumber}</Text>
+                            </Pressable>
+                        </View>
+                    )}
+                    {gameEnded && (
+                        <>
+                            <View style={style.scoreHolder}>
+                                <Text style={style.scoreText2}>Congratulations!</Text>
+                                <Text style={style.scoreText2} >{`${winnerName} is the Winner!!!`}</Text>
+                            </View>
+                            <Pressable
+                                style={style.playAGainButton}
+                                onPress={() => playAGain()}
+                            >
+                                <Text>Play again?</Text>
+                            </Pressable>
+                            {/* <View style={style.gameRow1}>
+                                <Pressable 
+                                    style={style.playAgainButton}
+                                    onPress={handlePlayAgain}
+                                >
+                                    <Text style={style.playAgainText}>Play again?</Text>
+                                </Pressable>
+                            </View> */}
+                        </>
+                    )}
+                </View>
+            </ScrollView>
         </LinearGradient>
     )
 }
@@ -255,6 +290,9 @@ const style = StyleSheet.create({
         fontSize: 20,
         textAlign: "center",
         fontWeight: 800,
+    },
+    scrollPageContainer: {
+        gap: 10,
     },
     howTo: {
         borderRadius: 8,
@@ -326,39 +364,69 @@ const style = StyleSheet.create({
         alignSelf: 'center',
         borderRadius: 15,
     },
+    //// GAME
+    gameWrapper: {
+        marginTop: 20,
+        gap: 20,
+    },
     playerListWrapper: {
         flexDirection: 'row',
+        flexWrap: 'wrap',
         gap: 10,
         justifyContent: "center",
+        
     },
     playerListIndividual: {
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+        borderRadius: 8,
         gap: 5,
+        padding: 8,
     },
     playerListIndividualText: {
+        // width: 120,
         textAlign: "center",
         alignSelf: 'center',
         fontSize: 15,
         fontWeight: 600,
     },
-    selectNumberButton: {
-        backgroundColor: 'rgba(0, 148, 32, 0.83)',
-        paddingVertical: 5,
-        paddingHorizontal: 10,
-        alignSelf: 'center',
-        borderRadius: 15,
+    rangeText: {
+        textAlign: "center",
+        fontSize: 15,
+        fontWeight: 600,
+    },
+    numberRange: {
+        // backgroundColor: 'rgba(45, 39, 216, 0.72)',
+        height: 30,
+        flexDirection: "row",
+        gap: 5,
+    },
+    numberRangeIndividual: {
+        // width: "auto",
+        // backgroundColor: "pink",
+        flex: 1,
+        borderRadius: 8,
+        borderWidth: 2,
+        borderColor: 'rgba(0, 0, 0, 0.29)',
     },
     theRandomNumberHolder: {
-        flexDirection: "row",
+        borderBlockColor: "grey",
+        borderWidth: 2,
+        borderColor: 'rgba(0, 0, 0, 0.29)',
         justifyContent: "center",
-        backgroundColor: 'rgba(138, 148, 0, 0.83)',
         alignSelf: 'center',
         padding: 10,
         borderRadius: 15,
     },
+    theRandomNumberHolderText: {
+        textAlign: "center",
+    },
     theRandomNumberTheNumber: {
+        fontSize: 25,
+        textAlign: "center",
     },
     scoreHolder: {
         gap: 10,
+        marginTop: 10,
     },
     scoreText1: {
         fontSize: 20,
@@ -369,5 +437,15 @@ const style = StyleSheet.create({
         fontWeight: 800,
         gap: 10,
         textAlign: "center",
+    },
+    playAGainButton: {
+        backgroundColor: 'rgba(85, 228, 50, 0.83)',
+        borderRadius: 15,
+        borderWidth: 2,
+        borderColor: 'rgba(0, 0, 0, 0.29)',
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        alignSelf: 'center',
+        marginTop: 10,
     },
 })
