@@ -7,7 +7,7 @@ import Slider from '@react-native-community/slider';
 
 export default function TheSelector() {
     const [currentInput, setCurrentInput] = useState('');
-    const [players, setPlayers] = useState<Array<{ name: string; number: string }>>([ { name: '', number: ''}]);
+    const [players, setPlayers] = useState<Array<{ name: string; number: string }>>([ { name: '', number: ''}]); // players[index].number
     const [sliderNumber, setSliderNumber] = useState(90);
     const [saveCheckAllowed, setSaveCheckAllowed] = useState(false);
     const [namesSaved, setNamesSaved] = useState(false);
@@ -15,6 +15,10 @@ export default function TheSelector() {
     const [randomNumberSelected, setRandomNumberSelected] = useState(false);
     const [gameEnded, setGameEnded] = useState(false);
     const [winnerName, setWinnerName] = useState('');
+    const [gameIsThinking, setGameIsThinking] = useState(false);
+    const [highlightNumber, setHighlightNumber] = useState(5);
+
+    // setHighlightNumber(1);
 
     const resetGame = () => {
         setCurrentInput('');
@@ -117,6 +121,7 @@ export default function TheSelector() {
     }
     
     async function takeTurn() {
+        setGameIsThinking(true);
         let finalNumber = 0;
 
         setRandomNumberSelected(false);
@@ -140,15 +145,31 @@ export default function TheSelector() {
             setGameEnded(true);
             setWinnerName(winner.name);
         }
+        setGameIsThinking(false);
     }
 
-    const numberRangeDisplay = () => {
-        return Array.from( {length: sliderNumber }, (_, index) => (
-            <View key={index} style={style.numberRangeIndividual}>
-                {/* <Text>{index + 1}</Text> */}
+    // useEffect(() => {
+    //     numberRangeDisplay();
+    // }, [sliderNumber])
 
-            </View>
-        ));
+    const numberRangeDisplay = () => {
+        return Array.from( {length: sliderNumber }, (_, index) => {
+            const player = players[index];
+            return (
+                <View key={index} style={
+                    [style.numberRangeIndividual,
+                    player && parseInt(player.number, 10) === index + 1 && { backgroundColor: "green" },
+                    // highlightNumber === (index + 1) && { backgroundColor: "green" },
+                    // parseInt(players[index]?.number || "0") === index && { backgroundColor: "green" },
+                    // highlightNumber === players.map(p => p.number) && { backgroundColor: "green" },
+                    randomNumber === (index + 1) && { backgroundColor: "red" }]
+                }
+                >
+                    {/* <Text>{index + 1}</Text> */}
+
+                </View>
+            )
+        });
     }
 
     // const numberRangeDisplay = () => {
@@ -178,6 +199,15 @@ export default function TheSelector() {
                     {!namesSaved && (
                         <View style={style.namePanel}>
 
+                            <Text>{`Select a number to play between${sliderNumber === 0 ? '' : `: 1-${sliderNumber}`}`}</Text>
+                            <Slider
+                                minimumValue={0}
+                                maximumValue={20}
+                                minimumTrackTintColor='rgba(0, 148, 32, 0.83)'
+                                onValueChange={setSliderNumber}
+                                value={sliderNumber}
+                                step={1}
+                                />
                             <Text>Enter player names</Text>
                             {players.map((_, index) => playerSelect(index))}
                             <View style={style.namePanelAddRemove}>
@@ -202,19 +232,27 @@ export default function TheSelector() {
                                     </Pressable>
                                 )}
                             </View>
-                            <Text>{`Select a number to play between${sliderNumber === 0 ? '' : `: 1-${sliderNumber}`}`}</Text>
-                            <Slider
-                                minimumValue={0}
-                                maximumValue={100}
-                                minimumTrackTintColor='rgba(0, 148, 32, 0.83)'
-                                onValueChange={setSliderNumber}
-                                value={sliderNumber}
-                                step={1}
-                            />
+
+
+                            <View style={ {gap: 5} }>
+                                <Text style={style.rangeText}>{`Number range: 1-${sliderNumber}`}</Text>
+                                <View style={style.numberRange}>
+                                    {numberRangeDisplay()}                                
+                                </View>
+                            </View>
+
+
+
+                            
                             <Pressable // TODO: add disabled={!saveCheckAllowed}
                                 onPress={saveCheckAllowed ? () => setNamesSaved(true) : undefined}
                             >
                                 <Text style={[style.nameSaveButton, saveCheckAllowed && {backgroundColor: 'rgba(0, 148, 32, 0.83)' }]}>Save & Continue</Text>
+                            </Pressable>
+                            <Pressable // TODO: add disabled={!saveCheckAllowed}
+                                onPress={() => setHighlightNumber(highlightNumber + 1)}
+                            >
+                                <Text style={[style.nameSaveButton]}>Add extra number</Text>
                             </Pressable>
                             <Text>{saveCheckAllowed}</Text>
                         </View>
@@ -243,7 +281,7 @@ export default function TheSelector() {
                             </Pressable> */}
                             <Pressable 
                                 style={[style.theRandomNumberHolder, randomNumberSelected && { backgroundColor: 'rgba(85, 228, 50, 0.83)'}]}
-                                onPress={() => takeTurn()}
+                                onPress={!gameIsThinking ? () => takeTurn(): undefined}
                                 disabled={gameEnded}
                             >
                                 <Text style={style.theRandomNumberHolderText}>Click For</Text>
