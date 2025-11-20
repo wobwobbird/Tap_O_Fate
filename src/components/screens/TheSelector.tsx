@@ -137,6 +137,8 @@ export default function TheSelector() {
         setRandomNumber(finalNumber);
         finalNumber = await generateNumber(500);
         setRandomNumber(finalNumber);
+        finalNumber = await generateNumber(1000);
+        setRandomNumber(finalNumber);
 
         setRandomNumberSelected(true);
 
@@ -162,7 +164,14 @@ export default function TheSelector() {
                     // highlightNumber === (index + 1) && { backgroundColor: "green" },
                     // parseInt(players[index]?.number || "0") === index && { backgroundColor: "green" },
                     // highlightNumber === players.map(p => p.number) && { backgroundColor: "green" },
-                    randomNumber === (index + 1) && { backgroundColor: "red" }]
+
+
+
+                    // randomNumber === (index + 1) && { backgroundColor: "red" }]
+                    randomNumber === (index + 1) && { borderWidth: 5, borderColor: 'rgba(255, 23, 23, 0.82)' }]
+                    //         borderWidth: 5,
+                    // borderColor: 'rgba(255, 23, 23, 0.82)',
+
                 }
                 >
                     {/* <Text>{index + 1}</Text> */}
@@ -259,12 +268,14 @@ export default function TheSelector() {
                     )}
                     {namesSaved && (
                         <View style={style.gameWrapper}>
-                            <View style={ {gap: 5} }>
-                                <Text style={style.rangeText}>{`Number range: 1-${sliderNumber}`}</Text>
-                                <View style={style.numberRange}>
-                                    {numberRangeDisplay()}                                
+                            {sliderNumber <= 20 && (
+                                <View style={ {gap: 5} }>
+                                    <Text style={style.rangeText}>{`Number range: 1-${sliderNumber}`}</Text>
+                                    <View style={style.numberRange}>
+                                        {numberRangeDisplay()}                                
+                                    </View>
                                 </View>
-                            </View>
+                            )}
                             <View style={style.playerListWrapper}>
                                 {players.map((player, index) => (
                                     <View style={style.playerListIndividual} key={index}>
