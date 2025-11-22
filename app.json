@@ -26,6 +26,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e077b406-9aea-4ff2-8e16-47ca9e5a6017"
+      }
+    },
+    "owner": "lordmarshy",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/e077b406-9aea-4ff2-8e16-47ca9e5a6017"
     }
   }
 }
